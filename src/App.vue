@@ -1,30 +1,45 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="main__box">
+    <the-header class="head"></the-header>
+    <router-view />
   </div>
-  <router-view />
 </template>
 
+<script>
+import { onBeforeMount } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import TheHeader from "./components/nav/TheHeader.vue";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+export default {
+  components: {
+    TheHeader,
+  },
+  setup() {
+    const router = useRouter();
+    const route = useRoute();
+    const auth = getAuth();
+
+    onBeforeMount(() => {
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          router.replace("/");
+        } else if (route.path == "/login" || route.path == "/register" || route.path == "/books") {
+          router.replace("/");
+        }
+      });
+    });
+  },
+};
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.main__box {
+  min-height: 100vh;
 }
 </style>
