@@ -24,4 +24,9 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
-see https://youthful-visvesvaraya-67404c.netlify.app/books
+I made this app as my Engineering work for ending studies
+Apliactiona to management small library.
+You can use link to see the app  https://youthful-visvesvaraya-67404c.netlify.app
+Admin acountin: 
+login: admin@admin.com
+pass: admin123
